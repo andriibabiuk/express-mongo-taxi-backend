@@ -6,7 +6,10 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DATABASE_URL);
+if (process.env.NODE_ENV !== 'test') {
+	mongoose.connect(process.env.DATABASE_URL);
+}
+
 app.use(bodyParser.json());
 
 routes(app);
